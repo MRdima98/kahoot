@@ -22,7 +22,7 @@ jobs:
             cd kahoot
             git pull origin main
             npm i
-            npm build
+            npm run build
             killall next-router-worker
             tmux attach
             npm run start
