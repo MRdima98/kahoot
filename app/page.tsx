@@ -1,3 +1,3 @@
 export default function Page() {
-  return <h1>Hello, Next.js!</h1>
+  return <div> <h1>Questo è kahoot</h1> <button>Connettiti alla partita </button> </div>
 }
