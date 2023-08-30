@@ -1,3 +1,12 @@
-export default function Page() {
-  return <div> <h1>Questo è kahoot</h1> <button>Connettiti alla partita </button> </div>
-}
+"use client";
+import { io } from "socket.io-client";
+
+const socket = io("ws://localhost:3000");
+
+// send a message to the server
+socket.emit("hello from client", 5, "6", { 7: Uint8Array.from([8]) });
+
+// receive a message from the server
+socket.on("hello from server", (...args) => {
+  // ...
+});
