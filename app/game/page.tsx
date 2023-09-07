@@ -1,13 +1,6 @@
-"use client";
-import { useState } from "react";
+"use client" 
 
-export default function Page() {
-  const [counter, setCounter] = useState(0);
-
-  const increase = () => {
-    setCounter(count => count + 1);
-  };
-
+function Home(){
   const socket = new WebSocket('ws://localhost:8080');
 
   socket.addEventListener('open', (event) => {
@@ -16,11 +9,6 @@ export default function Page() {
 
   socket.addEventListener('message', (event) => {
       console.log('Received message:', event.data);
-        if (event.data === 'giacomo') {
-          increase();
-          socket.send('risposta giusta');
-          socket.close();
-        }
       });
 
   socket.addEventListener('close', (event) => {
@@ -31,12 +19,20 @@ export default function Page() {
       console.error('WebSocket error:');
       });
 
-  return(
-      <div>
-          <span>
-              {counter}
-          </span>
-      </div>
-      )
+  const gotem = (msg: string) => {
+    socket.send(msg);
+  }
+
+  return (
+  <div>
+      Domanda 
+      <div onClick={ () => gotem('giacomo') }>opzione 1</div>
+      <div>opzione 2</div>
+      <div>opzione 3</div>
+      <div>opzione 4</div>
+  </div>
+  )
 
 }
+
+export default Home;
