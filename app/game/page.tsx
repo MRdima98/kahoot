@@ -1,38 +1,68 @@
-"use client" 
+"use client";
+import { useEffect, useState } from "react";
+import { Quiz } from "@/custom_types";
 
-function Home(){
-  const socket = new WebSocket('ws://localhost:8080');
 
-  socket.addEventListener('open', (event) => {
-      console.log('WebSocket connection opened:');
-      });
+export default function Page() {
+    const [data, setData] = useState<Quiz>();
+    const [counter, setCounter] = useState(0);
 
-  socket.addEventListener('message', (event) => {
-      console.log('Received message:', event.data);
-      });
+    useEffect(() => {
+      fetch("/api/questions")
+        .then((res) => res.json())
+        .then((data) => {
+          setData(data)
+        })
+    }, [])
 
-  socket.addEventListener('close', (event) => {
-      console.log('WebSocket connection closed:');
-      });
+    useEffect(() => {
+        const socket = new WebSocket('ws://localhost:8080');
 
-  socket.addEventListener('error', (event) => {
-      console.error('WebSocket error:');
-      });
+        socket.addEventListener('open', () => {
+            console.log('WebSocket connection opened:');
+            });
 
-  const gotem = (msg: string) => {
-    socket.send(msg);
-  }
+        socket.addEventListener('message', (event: any) => {
+            if (event.data === "new_player"){
+            setCounter(counter + 1);
+            }
+            if (event.data === "player_gone"){
+            setCounter(counter - 1);
+            }
+            if (event.data === "giacomo"){
+            socket.send("bruh")
+            }
+            });
 
-  return (
-  <div>
-      Domanda 
-      <div onClick={ () => gotem('giacomo') }>opzione 1</div>
-      <div>opzione 2</div>
-      <div>opzione 3</div>
-      <div>opzione 4</div>
-  </div>
-  )
+        socket.addEventListener('close', () => {
+            console.log('WebSocket connection closed:');
+            });
+
+        socket.addEventListener('error', () => {
+            console.error('WebSocket error:');
+            });
+
+      return () => {
+        socket.removeEventListener("message", socket);
+        socket.removeEventListener('open', socket);
+        socket.removeEventListener('close', socket);
+        socket.removeEventListener('error', socket);
+        // socket.close();
+      }
+    });
+
+
+    return(
+        <div>
+            <div> { data?.question }</div>
+            <div> { data?.answer1 }</div>
+            <div> { data?.answer2 }</div>
+            <div> { data?.answer3 }</div>
+            <div> { data?.answer4 }</div>
+            <span>
+                {counter}
+            </span>
+        </div>
+        )
 
 }
-
-export default Home;
