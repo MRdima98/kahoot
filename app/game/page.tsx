@@ -20,16 +20,19 @@ export default function Page() {
 
         socket.addEventListener('open', () => {
             console.log('WebSocket connection opened:');
+            socket.send("master");
             });
 
         socket.addEventListener('message', (event: any) => {
+          console.log(event.data);
             if (event.data === "new_player"){
-            setCounter(counter + 1);
+            setCounter(counter => counter + 1);
             }
             if (event.data === "player_gone"){
-            setCounter(counter - 1);
+            setCounter(counter => counter - 1);
             }
             if (event.data === "giacomo"){
+            console.log("received giacomo");
             socket.send("bruh")
             }
             });
@@ -41,15 +44,7 @@ export default function Page() {
         socket.addEventListener('error', () => {
             console.error('WebSocket error:');
             });
-
-      return () => {
-        socket.removeEventListener("message", socket);
-        socket.removeEventListener('open', socket);
-        socket.removeEventListener('close', socket);
-        socket.removeEventListener('error', socket);
-        // socket.close();
-      }
-    });
+    }, []);
 
 
     return(

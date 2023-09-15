@@ -1,21 +1,18 @@
-const WebSocket = require('ws');
+import WebSocket from "ws";
 
 const wss = new WebSocket.Server({ port: 8080 });
 let clients_count = 0;
 const clients = {}
-let master;
+let master: WebSocket | null = null;
 
-wss.on('connection', (ws) => {
+wss.on('connection', (ws: WebSocket) => {
   console.log("Client connected");
-  const bruh = Array.from(wss.clients);
-  console.log(bruh[0]);
-  bruh[0].send("bithc");
 
-
-  ws.on('message', (message, isBinary) => {
+  ws.on('message', (message: string, isBinary) => {
     console.log(`Received: ${message}`);
-    if (message === 'master'){
-      master = wss.clients[wss.clients.length -1];
+    console.log(message);
+    if (message.toString() === "master"){
+      master = ws;
     }
     wss.clients.forEach((client) => {
       if (client !== ws && client.readyState === WebSocket.OPEN) {
@@ -23,9 +20,15 @@ wss.on('connection', (ws) => {
       }
     });
   });
+  if (master && master != ws) {
+    master.send("new_player");
+  }
 
   ws.on('close', () => {
     console.log('Client disconnected');
+    if (master && master != ws && wss.clients.size > 1) {
+      master.send("player_gone");
+    }
   });
 });
 

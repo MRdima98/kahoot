@@ -1,50 +1,57 @@
 "use client"
 import { useEffect, useState } from "react";
-let socket: WebSocket;
 
 export default function Home(){
-  const [gotem, setGotem] = useState<Function>();
+  const [message, setMessage] = useState('message');
+  const [isMessageSent, setMessageSent] = useState(false);
+  const [socket, setSocket] = useState<WebSocket | null>(null);
+
   useEffect(() => {
-      socket = new WebSocket('ws://localhost:8080');
+      const sock = new WebSocket('ws://localhost:8080');
 
-      socket.addEventListener('open', () => {
+      sock.addEventListener('open', () => {
           console.log('WebSocket connection opened:');
-          socket.send('new_player');
+      });
+
+      sock.addEventListener('message', (event: any) => {
+          console.log('Received message:', event.data);
+            if (event.data === "bruh"){
+              alert('gotem');
+            }
           });
 
-      socket.addEventListener('message', (event: any) => {
-          console.log('Received message:', event.data);
-          if (event.data === "bruh"){
-          alert('gotem');
-          }
-          });
-      socket.addEventListener('close', () => {
+      sock.addEventListener('close', () => {
           console.log('WebSocket connection closed:');
           });
 
-      socket.addEventListener('error', () => {
+      sock.addEventListener('error', () => {
           console.error('WebSocket error:');
           });
 
+      setSocket(sock);
+
       return () => {
-        socket.removeEventListener('message', socket);
-        socket.removeEventListener('open', socket);
-        socket.removeEventListener('close', socket);
-        socket.removeEventListener('error', socket);
-        // socket.close();
-      }
-  });
+        sock.close()
+      };
+  }, []);
 
   useEffect(() => {
-    setGotem( function(msg) {
-      if (socket) socket.send(msg);
-    })
-  });
+        console.log("clicled");
+        if (socket && !isMessageSent){
+          socket.send(message);
+        }
+        setMessageSent(true);
+  }, [message]);
+
+  const messageHandler = (msg: string) => {
+    setMessage(msg);
+    setMessageSent(false);
+  };
 
   return (
       <div>
       Domanda 
-      <div onClick={ () => gotem('giacomo') }>opzione 1</div>
+      <div onClick={ () => messageHandler('giacomo') }>opzione 1</div>
       <div>opzione 2</div>
       <div>opzione 3</div>
       <div>opzione 4</div>
