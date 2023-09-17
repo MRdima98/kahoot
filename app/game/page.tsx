@@ -1,63 +1,58 @@
 "use client";
 import { useEffect, useState } from "react";
 import { Quiz } from "@/custom_types";
-
+let players_answers: number = 0;
+let players_number: number = 0;
 
 export default function Page() {
-    const [data, setData] = useState<Quiz>();
+    const [question, setQuestion] = useState<Quiz | null>(null);
     const [counter, setCounter] = useState(0);
+    const [socket, setSocket] = useState<WebSocket | null>(null);
 
     useEffect(() => {
-      fetch("/api/questions")
-        .then((res) => res.json())
-        .then((data) => {
-          setData(data)
-        })
-    }, [])
+        const socket = new WebSocket("ws://localhost:8080");
 
-    useEffect(() => {
-        const socket = new WebSocket('ws://localhost:8080');
+        socket.addEventListener("open", () => {
+            console.log("WebSocket connection opened:");
+            socket.send(JSON.stringify({ master: true }));
+        });
 
-        socket.addEventListener('open', () => {
-            console.log('WebSocket connection opened:');
-            socket.send("master");
-            });
-
-        socket.addEventListener('message', (event: any) => {
-          console.log(event.data);
-            if (event.data === "new_player"){
-            setCounter(counter => counter + 1);
+        socket.addEventListener("message", (event: any) => {
+            console.log(event.data);
+            const json = JSON.parse(event.data);
+            if (json) {
+                if (json["player_count"]) {
+                    setCounter(json["player_count"]);
+                    players_number = json["player_count"];
+                }
+                if (json["player_answer"]) {
+                    players_answers++;
+                }
+                if (json["question"]) {
+                    setQuestion(json);
+                }
             }
-            if (event.data === "player_gone"){
-            setCounter(counter => counter - 1);
-            }
-            if (event.data === "giacomo"){
-            console.log("received giacomo");
-            socket.send("bruh")
-            }
-            });
+        });
 
-        socket.addEventListener('close', () => {
-            console.log('WebSocket connection closed:');
-            });
+        socket.addEventListener("close", () => {
+            console.log("WebSocket connection closed:");
+        });
 
-        socket.addEventListener('error', () => {
-            console.error('WebSocket error:');
-            });
+        socket.addEventListener("error", () => {
+            console.error("WebSocket error:");
+        });
+
+        setSocket(socket);
     }, []);
 
-
-    return(
+    return (
         <div>
-            <div> { data?.question }</div>
-            <div> { data?.answer1 }</div>
-            <div> { data?.answer2 }</div>
-            <div> { data?.answer3 }</div>
-            <div> { data?.answer4 }</div>
-            <span>
-                {counter}
-            </span>
+            <div> {question?.question}</div>
+            <div> {question?.answer1}</div>
+            <div> {question?.answer2}</div>
+            <div> {question?.answer3}</div>
+            <div> {question?.answer4}</div>
+            <span>{counter}</span>
         </div>
-        )
-
+    );
 }
