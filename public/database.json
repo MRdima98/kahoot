@@ -1,0 +1,29 @@
+{
+    "question1": {
+        "question": "Gotem?",
+        "answer1": "round1_1",
+        "answer2": "round1_2",
+        "answer3": "round1_3",
+        "answer4": "round1_4",
+        "correct": "round1_1",
+        "picture_path": "./pictures/test.png"
+    },
+    "question2": {
+        "question": "Gotem 1?",
+        "answer1": "round2_1",
+        "answer2": "round2_2",
+        "answer3": "round2_3",
+        "answer4": "round2_4",
+        "correct": "round2_3",
+        "picture_path": "./pictures/test.png"
+    },
+    "question3": {
+        "question": "Gotem 2?",
+        "answer1": "round3_1",
+        "answer2": "round3_2",
+        "answer3": "round3_3",
+        "answer4": "round3_4",
+        "correct": "round3_1",
+        "picture_path": "./pictures/test.png"
+    }
+}
