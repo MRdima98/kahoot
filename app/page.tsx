@@ -56,10 +56,16 @@ export default function Home() {
         if (cool_message.msg && cool_message.msg == question?.correct) {
             if (cool_message.ref.current) {
                 cool_message.ref.current.style.backgroundColor = "green";
+                if (socket) {
+                    socket.send(JSON.stringify({ correct: true }));
+                }
             }
         } else {
             if (cool_message.ref.current) {
                 cool_message.ref.current.style.backgroundColor = "red";
+                if (socket) {
+                    socket.send(JSON.stringify({ correct: false }));
+                }
             }
         }
         if (cool_message.ref.current) {

@@ -1,4 +1,5 @@
 import { Ref, RefObject } from "react";
+import { WebSocket } from "ws";
 
 export interface Quiz {
     question: string;
@@ -13,4 +14,10 @@ export interface Quiz {
 export interface Cool_message {
     msg: string | undefined;
     ref: RefObject<HTMLDivElement>;
+}
+
+export interface Player {
+    nick_name: string, 
+    score: number, 
+    client: WebSocket
 }

@@ -1,16 +1,52 @@
 import WebSocket from "ws";
 import query from "./public/database.json";
-import { Quiz } from "@/custom_types";
+import { Player } from "@/custom_types";
+
+class Game {
+    players: Player[];
+
+    constructor() {
+        this.players = [];
+    }
+
+    addPlayer(client: WebSocket, name: string) {
+        const isLogged = this.players.find((el) => el.client == client);
+        if (isLogged) return; 
+
+        const player: Player = { nick_name: name, score: 0, client: client };
+        this.players.push(player);
+    }
+
+    removePlayer(client: WebSocket) {
+        this.players = this.players.filter((el) => el.client != client);
+    }
+
+    updateScore(points: number, client: WebSocket) {
+        const player = this.players.find((el) => el.client != client);
+        if (player){
+            player.score += points;
+        }
+    }
+
+    printPlayer() {
+        this.players.forEach( (p) => {
+            console.log(p.nick_name);
+            console.log(p.score);
+        });
+    }
+}
 
 const wss = new WebSocket.Server({ port: 8080 });
 let master: WebSocket | null = null;
 let questionCount = 0;
 let [current_question, questions] = Object.entries(query)[questionCount];
+const game = new Game();
 
 wss.on("connection", (ws: WebSocket) => {
     console.log("Client connected");
-
-    ws.send(JSON.stringify(questions), {binary: false} );
+    console.log("Client connected");
+    ws.send(JSON.stringify(questions), { binary: false });
+    game.addPlayer(ws, "jessica");
 
     getPlayersCount();
 
@@ -28,26 +64,34 @@ wss.on("connection", (ws: WebSocket) => {
                 }
             }
         });
-        if (msg.answered) {
-          [current_question, questions] = Object.entries(query)[++questionCount];
-          console.log(current_question);
-          wss.clients.forEach((client) => {
-            client.send(JSON.stringify(questions), {binary: false} );
-          });
+        if (msg.answered && Object.keys(query).length - 1 != questionCount) {
+            [current_question, questions] = Object.entries(query)[++questionCount];
+            console.log(current_question);
+            wss.clients.forEach((client) => {
+                client.send(JSON.stringify(questions), { binary: false });
+            });
         }
+        if (msg.correct){
+            game.updateScore(100, ws);
+            console.log(game.printPlayer());
+        } 
     });
 
     ws.on("close", () => {
-      console.log("Client disconnected");
-      getPlayersCount();
-      if (ws == master) questionCount = 0;
+        console.log("Client disconnected");
+        getPlayersCount();
+        if (ws == master) questionCount = 0;
+        game.removePlayer(ws);
     });
+
 });
 
 function getPlayersCount(): void {
-  if (!master) return;
-  master.send(JSON.stringify({ player_count: wss.clients.size - 1 }), {
-    binary: false,
-  });
+    if (!master) return;
+    master.send(JSON.stringify({ player_count: wss.clients.size - 1 }), {
+        binary: false,
+    });
 }
 console.log("WebSocket server started on port 8080");
+
+
