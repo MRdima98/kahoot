@@ -22,10 +22,15 @@ class Game {
     }
 
     updateScore(points: number, client: WebSocket) {
-        const player = this.players.find((el) => el.client != client);
+        const player = this.players.find((el) => el.client == client);
         if (player){
             player.score += points;
         }
+    }
+
+    getPlayerScore(client: WebSocket) {
+        const player = this.players.find((el) => el.client == client);
+        return player?.score;
     }
 
     printPlayer() {
@@ -43,7 +48,6 @@ let [current_question, questions] = Object.entries(query)[questionCount];
 const game = new Game();
 
 wss.on("connection", (ws: WebSocket) => {
-    console.log("Client connected");
     console.log("Client connected");
     ws.send(JSON.stringify(questions), { binary: false });
     game.addPlayer(ws, "jessica");
@@ -66,21 +70,25 @@ wss.on("connection", (ws: WebSocket) => {
         });
         if (msg.answered && Object.keys(query).length - 1 != questionCount) {
             [current_question, questions] = Object.entries(query)[++questionCount];
-            console.log(current_question);
             wss.clients.forEach((client) => {
                 client.send(JSON.stringify(questions), { binary: false });
             });
         }
         if (msg.correct){
             game.updateScore(100, ws);
-            console.log(game.printPlayer());
+            sendMessage( { score: game.getPlayerScore(ws) }, ws);
         } 
     });
 
     ws.on("close", () => {
-        console.log("Client disconnected");
         getPlayersCount();
-        if (ws == master) questionCount = 0;
+        if (ws == master) {
+            questionCount = 0;
+            [current_question, questions] = Object.entries(query)[questionCount];
+            wss.clients.forEach((client) => {
+                client.send(JSON.stringify(questions), { binary: false });
+            });
+        }
         game.removePlayer(ws);
     });
 
@@ -91,6 +99,10 @@ function getPlayersCount(): void {
     master.send(JSON.stringify({ player_count: wss.clients.size - 1 }), {
         binary: false,
     });
+}
+
+function sendMessage(message: Object, ws: WebSocket) {
+    ws.send(JSON.stringify(message), { binary: false });
 }
 console.log("WebSocket server started on port 8080");
 
