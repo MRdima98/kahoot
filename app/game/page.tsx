@@ -10,7 +10,7 @@ export default function Page() {
     const [socket, setSocket] = useState<WebSocket | null>(null);
 
     useEffect(() => {
-        const socket = new WebSocket("ws://localhost:8080");
+        const socket = new WebSocket("ws://localhost:8080/master");
 
         socket.addEventListener("open", () => {
             console.log("WebSocket connection opened:");

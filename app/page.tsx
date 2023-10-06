@@ -14,7 +14,7 @@ export default function Home() {
     const ref4 = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        const sock = new WebSocket("ws://localhost:8080");
+        const sock = new WebSocket("ws://localhost:8080/player");
 
         sock.addEventListener("open", () => {
             console.log("WebSocket connection opened:");
@@ -28,7 +28,7 @@ export default function Home() {
                     setQuestion(json);
                 }
                 
-                if (json.score) {
+                if (json.score >= 0) {
                     console.log("set");
                     setScoreboard(json.score);
                     setReadQuestion(false);
