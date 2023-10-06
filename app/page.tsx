@@ -4,6 +4,8 @@ import { Quiz, Cool_message } from "@/custom_types";
 
 export default function Home() {
     const [message, setMessage] = useState("message");
+    const [scoreboard, setScoreboard] = useState("0");
+    const [readQuestion, setReadQuestion] = useState(true);
     const [socket, setSocket] = useState<WebSocket | null>(null);
     const [question, setQuestion] = useState<Quiz | null>(null);
     const ref1 = useRef<HTMLDivElement>(null);
@@ -24,6 +26,13 @@ export default function Home() {
             if (json) {
                 if (json["question"]) {
                     setQuestion(json);
+                }
+                
+                if (json.score) {
+                    console.log("set");
+                    setScoreboard(json.score);
+                    setReadQuestion(false);
+                    setTimeout( () => { setReadQuestion(true)}, 3000);
                 }
             }
         });
@@ -56,10 +65,16 @@ export default function Home() {
         if (cool_message.msg && cool_message.msg == question?.correct) {
             if (cool_message.ref.current) {
                 cool_message.ref.current.style.backgroundColor = "green";
+                if (socket) {
+                    socket.send(JSON.stringify({ correct: true }));
+                }
             }
         } else {
             if (cool_message.ref.current) {
                 cool_message.ref.current.style.backgroundColor = "red";
+                if (socket) {
+                    socket.send(JSON.stringify({ correct: false }));
+                }
             }
         }
         if (cool_message.ref.current) {
@@ -71,42 +86,52 @@ export default function Home() {
 
     return (
         <div>
+        { readQuestion ? 
+        (
+            <div>
             <div
-                ref={ref1}
-                onClick={() =>
-                    messageHandler({ msg: question?.answer1, ref: ref1 })
-                }
+            ref={ref1}
+            onClick={() =>
+            messageHandler({ msg: question?.answer1, ref: ref1 })
+            }
             >
-                {" "}
-                {question?.answer1}
+            {" "}
+            {question?.answer1}
             </div>
             <div
-                ref={ref2}
-                onClick={() =>
-                    messageHandler({ msg: question?.answer2, ref: ref2 })
-                }
+            ref={ref2}
+            onClick={() =>
+            messageHandler({ msg: question?.answer2, ref: ref2 })
+            }
             >
-                {" "}
-                {question?.answer2}
+            {" "}
+            {question?.answer2}
             </div>
             <div
-                ref={ref3}
-                onClick={() =>
-                    messageHandler({ msg: question?.answer3, ref: ref3 })
-                }
+            ref={ref3}
+            onClick={() =>
+                messageHandler({ msg: question?.answer3, ref: ref3 })
+            }
             >
-                {" "}
-                {question?.answer3}
+            {" "}
+            {question?.answer3}
             </div>
-            <div
+                <div
                 ref={ref4}
-                onClick={() =>
-                    messageHandler({ msg: question?.answer4, ref: ref4 })
-                }
+            onClick={() =>
+                messageHandler({ msg: question?.answer4, ref: ref4 })
+            }
             >
-                {" "}
-                {question?.answer4}
+            {" "}
+            {question?.answer4}
             </div>
+            </div>
+            ) : (
+            <div>
+                { scoreboard } 
+            </div>
+            )
+        }
         </div>
     );
 }
