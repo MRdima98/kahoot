@@ -21,6 +21,7 @@ export default function Home() {
         });
 
         sock.addEventListener("message", (event: any) => {
+            console.log("Received message:", event.data);
             const json = JSON.parse(event.data);
             if (json) {
                 if (json["question"]) {

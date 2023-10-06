@@ -1,6 +1,6 @@
 import WebSocket from "ws";
 import query from "./public/database.json";
-import { Player } from "@/custom_types";
+import { Player, Quiz } from "@/custom_types";
 
 class Game {
     players: Player[];
@@ -105,5 +105,3 @@ function sendMessage(message: Object, ws: WebSocket) {
     ws.send(JSON.stringify(message), { binary: false });
 }
 console.log("WebSocket server started on port 8080");
-
-
