@@ -17,7 +17,8 @@ export interface Cool_message {
 }
 
 export interface Player {
-    nick_name: string, 
-    score: number, 
+    nick_name: string
+    score: number
     client: WebSocket
+    answered: boolean
 }

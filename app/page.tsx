@@ -52,12 +52,6 @@ export default function Home() {
         };
     }, []);
 
-    useEffect(() => {
-        if (socket) {
-            socket.send(JSON.stringify({ answered: true }));
-        }
-    }, [message]);
-
     const messageHandler = (cool_message: Cool_message) => {
         if (cool_message.msg) {
             setMessage(cool_message.msg);
