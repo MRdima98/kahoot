@@ -13,6 +13,12 @@ const config: Config = {
                 "gradient-conic":
                     "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
             },
+            colors: {
+              kahootRed: '#FF5C5C',
+              kahootBlue: '#0099E6',
+              kahootGreen: '#4CAF50',
+              kahootYellow: '#FFD64D',
+            }
         },
     },
     plugins: [],

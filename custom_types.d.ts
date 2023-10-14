@@ -21,4 +21,5 @@ export interface Player {
     score: number
     client: WebSocket
     answered: boolean
+    bonus: number
 }

@@ -17,7 +17,8 @@ class Game {
         const isLogged = this.players.find((el) => el.client == client);
         if (isLogged) return; 
 
-        const player: Player = { nick_name: name, score: 0, client: client, answered: false};
+        const player: Player = { nick_name: name, score: 0, client: client,
+          answered: false, bonus: 0};
         this.players.push(player);
     }
 
@@ -29,19 +30,17 @@ class Game {
         const player = this.players.find((el) => el.client == client);
         if (player){
             player.score += points;
+            player.score += player.bonus;
         }
     }
 
+    getScoreBoard() {
+        return this.players.sort((a,b) => b.score - a.score);
+    }
+    
     getPlayerScore(client: WebSocket) {
         const player = this.players.find((el) => el.client == client);
         return player?.score;
-    }
-
-    printPlayer() {
-        this.players.forEach( (p) => {
-            console.log(p.nick_name);
-            console.log(p.score);
-        });
     }
 
     addAnswer(client: WebSocket) {
@@ -61,6 +60,10 @@ class Game {
 
     getPlayersCount(): number {
         return this.players.length - 1;
+    }
+
+    getPlayers(): Player[] {
+        return this.players;
     }
 
     resetAnswers(): number {
@@ -114,10 +117,18 @@ class MyDispatcher {
         [current_question, questions] = Object.entries(query)[questionCount];
         this.master.on("message", (message: string) => {
             const msg = JSON.parse(message);
-            if (msg.timeout) {
+            console.log(msg);
+            if (msg.reset) {
+                this.broadcast_message( { reset: true });
+            }
+            if (msg.timeout && questionCount < 3) {
                 [current_question, questions] = Object.entries(query)[++questionCount];
                 this.broadcast_message(questions);
-                sendMessage( { score: game.getPlayerScore(ws) }, this.master );
+                sendMessage( { scoreboard: game.getScoreBoard() }, this.master );
+            }
+            if (!Object.entries(query)[questionCount]) {
+                sendMessage( { scoreboard: game.getScoreBoard() }, this.master );
+                sendMessage({ last: true }, this.master);
             }
         })
     }
@@ -130,16 +141,25 @@ class MyDispatcher {
             const msg = JSON.parse(message);
             if (msg.correct) {
                 game.updateScore(100, ws);
-            } 
+            }
             game.addAnswer(ws);
             
+            console.log(msg);
+            if ( msg.reset) {
+              sendMessage( { reset: true }, ws );
+            }
             sendMessage( { answered: true, howMany: game.getAnswerNumber() }, this.master );
 
-            if (game.getAnswerNumber() == game.players.length) {
+            if (game.getAnswerNumber() == game.players.length && Object.entries(query)[++questionCount]) {
                 sendMessage( { answered: true, howMany: game.resetAnswers() }, this.master );
-                [current_question, questions] = Object.entries(query)[++questionCount];
+                [current_question, questions] = Object.entries(query)[questionCount];
                 this.broadcast_message(questions);
+                sendMessage( { scoreboard: game.getScoreBoard() }, this.master );
+            }
+            if (!Object.entries(query)[questionCount]) {
+                sendMessage( { scoreboard: game.getScoreBoard() }, this.master );
                 sendMessage( { score: game.getPlayerScore(ws) }, this.master );
+                sendMessage({ last: true }, this.master);
             }
         })
     }
@@ -163,45 +183,3 @@ class MyDispatcher {
 const dispatcher = new MyDispatcher();
 
 console.log("WebSocket server started on port 8080");
-
-// wss.on("connection", (ws: WebSocket) => {
-//     console.log("Client connected");
-//     ws.send(JSON.stringify(questions), { binary: false });
-//     getPlayersCount();
-//     ws.on("message", (message: string) => {
-//         const msg = JSON.parse(message);
-//         console.log(`Received: ${message}`);
-//         if (msg.master) {
-//             master = ws;
-//             getPlayersCount();
-//         }
-//         wss.clients.forEach((client) => {
-//             if (client !== ws && client.readyState === WebSocket.OPEN) {
-//                 if (msg.question || msg.player) {
-//                     client.send(message, { binary: false });
-//                 }
-//             }
-//         });
-//         if (msg.answered && Object.keys(query).length - 1 != questionCount) {
-//             [current_question, questions] = Object.entries(query)[++questionCount];
-//             wss.clients.forEach((client) => {
-//                 client.send(JSON.stringify(questions), { binary: false });
-//             });
-//         }
-//         if (msg.correct){
-//             game.updateScore(100, ws);
-//             sendMessage( { score: game.getPlayerScore(ws) }, ws);
-//         } 
-//     });
-//     ws.on("close", () => {
-//         getPlayersCount();
-//         if (ws == master) {
-//             questionCount = 0;
-//             [current_question, questions] = Object.entries(query)[questionCount];
-//             wss.clients.forEach((client) => {
-//                 client.send(JSON.stringify(questions), { binary: false });
-//             });
-//         }
-//         game.removePlayer(ws);
-//     });
-// });

@@ -1,29 +1,137 @@
 {
     "question1": {
-        "question": "Gotem?",
-        "answer1": "round1_1",
-        "answer2": "round1_2",
-        "answer3": "round1_3",
-        "answer4": "round1_4",
-        "correct": "round1_1",
-        "picture_path": "./pictures/test.png"
+        "question": "Qual è il nome del cagnolino della Sara?",
+        "answer1": "Gijet",
+        "answer2": "Nasus",
+        "answer3": "Gilda",
+        "answer4": "Pluto",
+        "correct": "Gilda",
+        "path": "/pictures/1.jpg"
     },
     "question2": {
-        "question": "Gotem 1?",
-        "answer1": "round2_1",
-        "answer2": "round2_2",
-        "answer3": "round2_3",
-        "answer4": "round2_4",
-        "correct": "round2_3",
-        "picture_path": "./pictures/test.png"
+        "question": "Tutti sanno la serie più amata da Sara, ma qual è la più odiata?",
+        "answer1": "How I met you mother",
+        "answer2": "Riverdale",
+        "answer3": "Mr. Robot",
+        "answer4": "Bojack",
+        "correct": "Riverdale",
+        "path": "/pictures/2.jpg"
     },
     "question3": {
-        "question": "Gotem 2?",
-        "answer1": "round3_1",
-        "answer2": "round3_2",
-        "answer3": "round3_3",
-        "answer4": "round3_4",
-        "correct": "round3_1",
-        "picture_path": "./pictures/test.png"
+        "question": "Dove si trova la nostra sobria e decorosa dottoressa?",
+        "answer1": "Chi se lo ricorda...",
+        "answer2": "Casa di Emmannuelle",
+        "answer3": "Casa di Giada",
+        "answer4": "Bar stadio",
+        "correct": "Casa di Emmannuelle",
+        "path": "/pictures/3.jpg"
+    }, 
+    "question4": {
+        "question": "Dove si sono conosciuti Dima e Sara?",
+        "answer1": "A una cena tra amici",
+        "answer2": "A un calcetto",
+        "answer3": "In tirocinio Unimore",
+        "answer4": "In palestra",
+        "correct": "In tirocinio Unimore",
+        "path": "/pictures/4.jpeg"
+    }, 
+    "question5": {
+        "question": "Sara non è un amante dell'alcol, eccetto per?",
+        "answer1": "Birra",
+        "answer2": "Lacrima di suocera",
+        "answer3": "Vino",
+        "answer4": "Vodka",
+        "correct": "Vino",
+        "path": "/pictures/5.jpg"
+    }, 
+    "question6": {
+        "question": "Sara non è un amante dell'alcol, eccetto per?",
+        "answer1": "Francobolli",
+        "answer2": "Orsetti",
+        "answer3": "Puzzle",
+        "answer4": "Tappi",
+        "correct": "Puzzle",
+        "path": "/pictures/6.jpg"
+    }, 
+    "question7": {
+        "question": "Qual è il gruppo preferito di Sara?",
+        "answer1": "Imagine Dragons",
+        "answer2": "Nirvana",
+        "answer3": "AJR",
+        "answer4": "Queen",
+        "correct": "Imagine Dragons",
+        "path": "/pictures/7.jpg"
+    }, 
+    "question8": {
+        "question": "Film disney preferito?",
+        "answer1": "Mulan",
+        "answer2": "Lilo e Stitch",
+        "answer3": "Re Leone",
+        "answer4": "Nemo",
+        "correct": "Nemo",
+        "path": "/pictures/8.jpg"
+    }, 
+    "question9": {
+        "question": "La Sara NON è mai stata dove?",
+        "answer1": "New York",
+        "answer2": "York",
+        "answer3": "Napoli",
+        "answer4": "Monaco di Baviera",
+        "correct": "York",
+        "path": "/pictures/9.jpg"
+    }, 
+    "question10": {
+        "question": "La Sara sa sciare?",
+        "answer1": "Sì",
+        "answer2": "No",
+        "answer3": "Sì, ma col culino",
+        "answer4": "No, per carità!",
+        "correct": "No, per carità!",
+        "path": "/pictures/10.jpg"
+    }, 
+    "question11": {
+        "question": "La Sara ama i film horror",
+        "answer1": "Sì, prima di cena ogni sera",
+        "answer2": "No, panico",
+        "answer3": "Sì, se c'è un bel attore",
+        "answer4": "Sì, se c'è una bella attrice",
+        "correct": "Sì, se c'è una bella attrice",
+        "path": "/pictures/11.jpg"
+    }, 
+    "question12": {
+        "question": "La Sara si è diplomata con?",
+        "answer1": "100 e lode",
+        "answer2": "96",
+        "answer3": "69",
+        "answer4": "99",
+        "correct": "99",
+        "path": "/pictures/12.jpg"
+    }, 
+    "question13": {
+        "question": "Quale proprietà privata ha distrutto Sara, da ubriaca?",
+        "answer1": "Trattore",
+        "answer2": "Macchina",
+        "answer3": "Frigo",
+        "answer4": "Matita",
+        "correct": "Frigo",
+        "path": "/pictures/13.jpg"
+    }, 
+    "question14": {
+        "question": "La Sara ha preso a schiaffi una suo amico, in quel momento era? ",
+        "answer1": "Sobria",
+        "answer2": "Ubriaca",
+        "answer3": "Fatta",
+        "answer4": "Altro",
+        "correct": "Fatta",
+        "path": "/pictures/14.jpg"
+    }, 
+    "question15": {
+        "question": "La posizione preferita della Sara?",
+        "answer1": "Cavallo in A4",
+        "answer2": "Parcheggio a S",
+        "answer3": "Quarta base",
+        "answer4": "Ibridazione SP2",
+        "correct": "Ibridazione SP2",
+        "path": "/pictures/15.jpg"
     }
 }
