@@ -1,29 +1,137 @@
 {
     "question1": {
-        "question": "Gotem?",
-        "answer1": "round1_1",
-        "answer2": "round1_2",
-        "answer3": "round1_3",
-        "answer4": "round1_4",
-        "correct": "round1_1",
-        "picture_path": "./pictures/test.png"
+        "question": "Cos'è successo a Chiara a lavoro?",
+        "answer1": "L'ha chiamata una tipa che non voleva darle i dati necessari per fare il contratto ",
+        "answer2": "Hanno arrestato un suo collega",
+        "answer3": "Si è storta la caviglia facendo le scale",
+        "answer4": "Aveva un ammiratore segreto che le manda rose una volta a settimana ",
+        "correct": "L'ha chiamata una tipa che non voleva darle i dati necessari per fare il contratto ",
+        "path": "/pictures/1.jpg"
     },
     "question2": {
-        "question": "Gotem 1?",
-        "answer1": "round2_1",
-        "answer2": "round2_2",
-        "answer3": "round2_3",
-        "answer4": "round2_4",
-        "correct": "round2_3",
-        "picture_path": "./pictures/test.png"
+        "question": "Il prof non ha risposto perché…",
+        "answer1": "Si è separato dalla moglie che lo ha cacciato di casa",
+        "answer2": "Si era dimenticato di avere Chiara come tesista",
+        "answer3": "Ha avuto un incidente in auto a causa del quale è andato in pronto soccorso dove ha preso il Covid",
+        "answer4": "Ah, ma i prof di solito rispondo?",
+        "correct": "Ha avuto un incidente in auto a causa del quale è andato in pronto soccorso dove ha preso il Covid",
+        "path": "/pictures/2.jpg"
     },
     "question3": {
-        "question": "Gotem 2?",
-        "answer1": "round3_1",
-        "answer2": "round3_2",
-        "answer3": "round3_3",
-        "answer4": "round3_4",
-        "correct": "round3_1",
-        "picture_path": "./pictures/test.png"
+        "question": "Qual è il vero nome della cagnolina di Chiara",
+        "answer1": "Cuzza",
+        "answer2": "Mostrino Marrone",
+        "answer3": "Godzilla",
+        "answer4": "Laika",
+        "correct": "Laika",
+        "path": "/pictures/3.jpg"
+    }, 
+    "question4": {
+        "question": "Chiara si è rotta la caviglia mentre…",
+        "answer1": "Prendeva il treno per andare al mare",
+        "answer2": "Faceva le scale di casa con il telefono in mano",
+        "answer3": "Prendeva il treno per andare a fare un esame",
+        "answer4": "Giocava con la sua cagnolina",
+        "correct": "Prendeva il treno per andare a fare un esame",
+        "path": "/pictures/4.jpeg"
+    }, 
+    "question5": {
+        "question": "La parte del corpo più fragile di Chiara",
+        "answer1": "Spalla",
+        "answer2": "Caviglia destra",
+        "answer3": "Caviglia sinistra",
+        "answer4": "Collo",
+        "correct": "Caviglia sinistra",
+        "path": "/pictures/5.jpg"
+    }, 
+    "question6": {
+        "question": "Chiara è allergica al pelo dei gatti",
+        "answer1": "Vero",
+        "answer2": "Falso",
+        "answer3": "Non lo so ",
+        "answer4": "La cipolla",
+        "correct": "Vero",
+        "path": "/pictures/6.jpg"
+    }, 
+    "question7": {
+        "question": "La prima grossa sbronza di Chiara è stata:",
+        "answer1": "A 18 anni",
+        "answer2": "Questa estate",
+        "answer3": "A 16 anni",
+        "answer4": "Sta sera",
+        "correct": "Questa estate",
+        "path": "/pictures/7.jpg"
+    }, 
+    "question8": {
+        "question": "Attualmente dove lavora Chiara?",
+        "answer1": "Non sta lavorando",
+        "answer2": "In un'agenzia del lavoro ",
+        "answer3": "In un'agenzia immobiliare",
+        "answer4": "Al Tramvai",
+        "correct": "In un'agenzia immobiliare",
+        "path": "/pictures/8.jpg"
+    }, 
+    "question9": {
+        "question": "Cosa fa Chiara nel tempo libero?",
+        "answer1": "Uncinetto",
+        "answer2": "Origami",
+        "answer3": "Ceramica",
+        "answer4": "Dipinge",
+        "correct": "Dipinge",
+        "path": "/pictures/9.jpg"
+    }, 
+    "question10": {
+        "question": "Chiara non fa sport ma se lo facesse sarebbe...",
+        "answer1": "Bicicletta ",
+        "answer2": "Aerobica",
+        "answer3": "Calcetto",
+        "answer4": "Danza classica",
+        "correct": "Danza classica",
+        "path": "/pictures/10.jpg"
+    }, 
+    "question11": {
+        "question": "Il giorno della laurea Chiara…",
+        "answer1": "Ha investito un riccio in strada mentre andava in UNI",
+        "answer2": "Non ha sentito la sveglia",
+        "answer3": "E' stata proclamata come “Chiara Prete” anziché “Chiara Preite”",
+        "answer4": "Si è macchiata la maglietta bianca con il mascara nero",
+        "correct": "Si è macchiata la maglietta bianca con il mascara nero",
+        "path": "/pictures/11.jpg"
+    }, 
+    "question12": {
+        "question": "Sempre il giorno della laurea (eh che cazzo tutte oggi succedono…) Chiara…",
+        "answer1": "Ha scordato a casa la tesi",
+        "answer2": "Ha scordato la patente e ha guidato fino a Reggio senza",
+        "answer3": "Ha scordato le chiavi di casa e si è chiusa fuori",
+        "answer4": "Ha dimenticato di prendere in stazione Cappe prima di andare a Reggio",
+        "correct": "Ha scordato a casa la tesi",
+        "path": "/pictures/12.jpg"
+    }, 
+    "question13": {
+        "question": "Il SECONDO pilota preferito di chiara è…",
+        "answer1": "Sainz",
+        "answer2": "Leclerc",
+        "answer3": "Norris",
+        "answer4": "Piatri",
+        "correct": "Norris",
+        "path": "/pictures/13.jpg"
+    }, 
+    "question14": {
+        "question": "La paura più grande di chiara è...",
+        "answer1": "Agorafobia",
+        "answer2": "Ofidiofobia",
+        "answer3": "Trilofobia",
+        "answer4": "Megalofobia",
+        "correct": "Ofidiofobia",
+        "path": "/pictures/14.jpg"
+    }, 
+    "question15": {
+        "question": "Chiara ha una paura dei serpenti così grande che non ha avuto il coraggio di cercare su internet il significato della parola ofidiofobia",
+        "answer1": "Vero",
+        "answer2": "Falso",
+        "answer3": "Non lo so",
+        "answer4": "La cipolla",
+        "correct": "Vero",
+        "path": "/pictures/15.jpg"
     }
 }

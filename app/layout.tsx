@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Head from "next/head";
 
 import "./globals.css";
 
@@ -14,7 +15,13 @@ export default function RootLayout({
 }) {
     return (
         <html lang="en">
-            <body className="bg-neutral-400">{children}</body>
+            <Head>
+                <meta
+                    name="viewport"
+                    content="width=device-width, initial-scale=1.0"
+                />
+            </Head>
+            <body className="bg-neutral-400 h-full">{children}</body>
         </html>
     );
 }
