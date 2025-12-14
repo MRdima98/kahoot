@@ -8,7 +8,7 @@ My use case is the latter, this is a custom remake of the game specifically made
 ## How to use? 
 You need node and bun. Start next and socket_server.ts
 ```
-bun buildN
+bun build
 bun start
 ```
 in another terminal 
